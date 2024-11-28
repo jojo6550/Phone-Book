@@ -16,16 +16,34 @@ class Phone{
             phoneNumber2 = pn2;
         }
         time_t timestamp;
-        void addContact(){
-            cout<<"Enter Name: "<<endl;
-            getline(cin, name);
-            cout<<"Enter Phone Number: "<<endl; 
-            cin >> phoneNumber1;
-            time(&timestamp);
-            cin.ignore();
-            cout<<"Press enter to continue..."<<endl;
-            cin.ignore();
+    void addContact() {
+        cout << "Enter Name: " << endl;
+        getline(cin, name);
+        cout << "Enter Phone Number: " << endl; 
+        cin >> phoneNumber1;
+
+        // Get the current timestamp
+        time(&timestamp);
+
+        // Open the file in output mode
+        ofstream contact(name + ".txt");
+
+        if (contact.is_open()) {
+            // Write to the file with formatting
+            contact << "Name: " << name << endl;
+            contact << "Phone Number: " << phoneNumber1 << endl;
+            contact << "Created: " << ctime(&timestamp); // Convert to readable format
+            contact.close();
+            cout << "Contact saved successfully!" << endl;
+        } else {
+            cout << "Error creating file!" << endl;
         }
+
+        cout << "Press enter to continue..." << endl;
+        cin.ignore(); // Clear the input buffer
+        cin.ignore(); // Wait for user to press enter
+    }
+
         void viewInformation(){
             cout<<"Name: "<<name<<endl;
             cout<<"Phone Number: "<<phoneNumber1<<endl;
